@@ -1,0 +1,16 @@
+<html>
+<body>
+    <table border="1">
+        <tr>
+            <td>nome</td>
+            <td></td>
+        </tr>
+        <%for(var i=0;i<rooms.length;i++){%>
+            <tr>
+                <td><%=rooms[i].name%></td>
+                <td><a href="/chat?room=<%=rooms[i].name%>">Entrar</a> </td>
+            </tr>    
+        <%}%>
+    </table>
+</body>
+</html>

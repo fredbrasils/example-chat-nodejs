@@ -8,13 +8,14 @@ module.exports = function(app){
 //            res.render('home/chat',{livros:results.rows});
 //        });
         var allchat = req.body;
-        res.render('home/chat');
+        res.render('chat/chat',{room:req.query.room});
         
     });
     
    app.post("/",function(req,res){
        var allchat = req.body;
-       app.get('io').emit('newMsg',allchat);
+       console.log(allchat);
+       app.get('io').emit(allchat.room,allchat);
        //res.redirect('/chat');
     });
     

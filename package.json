@@ -2,7 +2,7 @@
   "name": "example-chat-nodejs",
   "version": "1.0.0",
   "description": "A chat built by nodejs",
-  "main": "index.js",
+  "main": "chat.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

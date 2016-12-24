@@ -17,12 +17,13 @@
             <div>
                 <input type="text" name="msg" id="msg"/>
             </div>    
+            <input type="hidden" name="room" id="room" value="<%=room%>"/>
             <input type="submit" value="Send"/>  
         </form>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io();
-            socket.on('newMsg', function (data) {
+            socket.on("<%=room%>", function (data) {
                 $( "#chat" ).append( "\n" + data.msg );
                 $( "#msg" ).val("");
                 

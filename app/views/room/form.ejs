@@ -1,0 +1,22 @@
+<html>
+<body>
+    <div class='erros'> 
+        <%if(errosValidacao){%>
+        <ul>
+            <%for(var i=0;i<errosValidacao.length;i++){%>
+                <li><%=errosValidacao[i].param%> - <%=errosValidacao[i].msg%></li>
+            <%}%>
+        </ul>
+     <%}%>
+    </div>
+    <form action="/room" method="post">
+        <div>
+            <label for="name">Room's Name</label>
+            <input type="text" id="name" name="name" value="<%=room.name%>" placeholder="Coloque o nome da sala"/>
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" value="<%=room.password%>" placeholder="Coloque a senha da sala"/>
+        </div>
+        <input type="submit" value="save"/>
+    </form>
+</body>
+</html>
