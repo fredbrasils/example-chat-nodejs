@@ -1,0 +1,20 @@
+<html>
+<body>
+    <div class='erros'> 
+        <%if(errosValidacao){%>
+        <ul>
+            <%for(var i=0;i<errosValidacao.length;i++){%>
+                <li><%=errosValidacao[i].param%> - <%=errosValidacao[i].msg%></li>
+            <%}%>
+        </ul>
+     <%}%>
+    </div>
+    <form action="/user" method="post">
+        <div>
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" value="<%=user%>" placeholder="Inform your name" maxlength="10"/>
+        </div>
+        <input type="submit" value="Enter"/>
+    </form>
+</body>
+</html>

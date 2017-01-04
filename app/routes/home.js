@@ -1,25 +1,39 @@
 module.exports = function(app){
     app.get('/',function(req,res){
-        
-        var connection = app.infra.connectionFactory();
-        var roomDAO = new app.infra.RoomDAO(connection);
+        res.render('home/user',{errosValidacao:{},user:""});
+    });
 
-        roomDAO.list(function(err, results){
-            
-            if(err){            
-                return next(err);
+    app.post("/user",function(req,res){
+       
+           var user = req.body;
+
+           if (user.name == ''){
+               user = ""
+           }
+                
+           var validatorName = req.assert('name','Name is required').notEmpty();
+
+           var erros = req.validationErrors();
+
+           if(erros){
+
+               res.format({
+                   html: function(){
+                         res.status(400).render('home/user',{errosValidacao:erros, 
+                                                             user:user
+                                                            }); 
+                       },
+                   json: function(){
+                            res.status(400).json(erros);
+                       }
+                });                
+
+                return;
             }
-
-            res.format({
-                html: function(){
-                   res.render('room/list',{rooms:results.rows}); 
-                },
-                json: function(){
-                    res.json(results.rows);
-                }
-            });
             
-        });
-        
+        var userName = encodeURIComponent(user.name);
+        res.redirect('/room?user='+userName);
+
     });
 }
+

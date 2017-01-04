@@ -1,7 +1,11 @@
 module.exports = function(app){
     
     app.get('/room', function(req,res,next){
-
+        
+        if (req.query.user == undefined){
+            res.render('home/user',{errosValidacao:{},user:{}});
+        }
+        
         var connection = app.infra.connectionFactory();
         var roomDAO = new app.infra.RoomDAO(connection);
 
@@ -13,7 +17,8 @@ module.exports = function(app){
 
             res.format({
                 html: function(){
-                   res.render('room/list',{rooms:results.rows}); 
+                   res.render('room/list',{rooms:results.rows,
+                                           user:req.query.user}); 
                 },
                 json: function(){
                     res.json(results.rows);
@@ -34,8 +39,8 @@ module.exports = function(app){
        
        var room = req.body;
             
-       var validatorPassword = req.assert('password','Senha é obrigatório').notEmpty();
-       var validatorName = req.assert('name','Sala é obrigatório').notEmpty();
+       var validatorPassword = req.assert('password','Password is required').notEmpty();
+       var validatorName = req.assert('name','Room is required').notEmpty();
         
        var erros = req.validationErrors();
        
@@ -54,13 +59,13 @@ module.exports = function(app){
                 
                 return;
             }
-        
-            var connection = app.infra.connectionFactory();
-            var roomDAO = new app.infra.RoomDAO(connection);
-            
-            roomDAO.save(room,function(err, results){
-                res.redirect('/room');
-            });
+
+        var connection = app.infra.connectionFactory();
+        var roomDAO = new app.infra.RoomDAO(connection);
+
+        roomDAO.save(room,function(err, results){
+            res.redirect('/room');
+        });
        
     });
     

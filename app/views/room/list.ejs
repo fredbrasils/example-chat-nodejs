@@ -8,7 +8,7 @@
         <%for(var i=0;i<rooms.length;i++){%>
             <tr>
                 <td><%=rooms[i].name%></td>
-                <td><a href="/chat?room=<%=rooms[i].name%>">Entrar</a> </td>
+                <td><a href="/chat?room=<%=rooms[i].name%>&user=<%=user%>">Entrar</a> </td>
             </tr>    
         <%}%>
     </table>

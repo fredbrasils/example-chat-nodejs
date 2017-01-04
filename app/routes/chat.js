@@ -8,7 +8,9 @@ module.exports = function(app){
 //            res.render('home/chat',{livros:results.rows});
 //        });
         var allchat = req.body;
-        res.render('chat/chat',{room:req.query.room});
+        res.render('chat/chat',{room:req.query.room,
+                                user:req.query.user
+                               });
         
     });
     

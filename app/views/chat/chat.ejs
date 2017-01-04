@@ -18,13 +18,14 @@
                 <input type="text" name="msg" id="msg"/>
             </div>    
             <input type="hidden" name="room" id="room" value="<%=room%>"/>
+            <input type="hidden" name="user" id="user" value="<%=user%>"/>
             <input type="submit" value="Send"/>  
         </form>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io();
             socket.on("<%=room%>", function (data) {
-                $( "#chat" ).append( "\n" + data.msg );
+                $( "#chat" ).append( "\n" + data.user +": " + data.msg );
                 $( "#msg" ).val("");
                 
                 var psconsole = $('#chat');
