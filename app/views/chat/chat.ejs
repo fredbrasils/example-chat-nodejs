@@ -24,14 +24,62 @@
         <script src="/socket.io/socket.io.js"></script>
         <script>
             var socket = io();
-            socket.on("<%=room%>", function (data) {
-                $( "#chat" ).append( "\n" + data.user +": " + data.msg );
-                $( "#msg" ).val("");
+            
+            socket.on('welcome', function(data) {
+
+                var url = "/welcome";
+                var newData = {id: data.id,
+                               room: $( "#room" ).val(),
+                               user: $( "#user" ).val()
+                              }
                 
+//              // Send the data using post
+              var posting = $.post( url, newData );
+              
+            });
+                        
+            $('form').submit(function(event){
+                
+                event.preventDefault();
+
+                // Get some values from elements on the page:
+                  var $form = $( this ),
+                    queryName = $form.serialize(),
+                    url = $form.attr( "action" );
+                
+                  // Send the data using post
+                  var posting = $.post( url, queryName );
+
+//                  posting.done(function( data ) {
+//                    alert("done");
+//                  });
+                
+              });
+            
+            socket.on('<%=room%>', function (data) {
+                addMessage("\n" + data.user + data.msg);
+            });
+            
+            function addMessage(data){
+                $( "#chat" ).append( data);
+                $( "#msg" ).val("");
                 var psconsole = $('#chat');
                 if(psconsole.length)
                    psconsole.scrollTop(psconsole[0].scrollHeight - psconsole.height());
-            });
+            }
+            
+//            function onPage(socket){
+//                console.log(socket.json);
+//                var queryName = socket.json.id;
+//                var url = "/teste";
+//
+//              // Send the data using post
+//              var posting = $.post( url, queryName );
+//                
+//            }
+//            
+//            onPage(socket);
+            
         </script>
     </body>
 </html>
